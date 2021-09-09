@@ -5,6 +5,8 @@ import 'total_scrips_traded.dart';
 List<String> fileContent = [];
 
 void main() async {
+  Stopwatch stopwatch = new Stopwatch()..start();
+
 // Creates a file object.
   var bulkDealsFile = File("bulk.csv");
 
@@ -44,4 +46,6 @@ void main() async {
   });
 
   print("Net shares bought/sold by client(s): $netTradedShares shares");
+
+  print('\nProgram executed in ${stopwatch.elapsed}');
 }
