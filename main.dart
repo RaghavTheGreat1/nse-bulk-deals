@@ -1,33 +1,35 @@
 import 'dart:io';
 
-// TODO: Number of scrips traded.
-// TODO: List of scrips traded.
-// TODO: Net shares traded in bulk deals overall.
-// TODO: Net shares traded in bulk deals scripwise
+import 'total_scrips_traded.dart';
+
+List<String> fileContent = [];
 
 void main() async {
 // Creates a file object.
   var bulkDealsFile = File("bulk.csv");
-  List<String> content = [];
 
 // Fetches & assign [List] of each lines to content.
   await bulkDealsFile.readAsLines().then((List<String> value) {
-    content = value;
+    fileContent = value;
   });
 
+// Displays total number of scrips traded as on date.
+  int numberOfScripsTraded = getTotalScripsTraded();
+  print("Total number of scrips traded today: $numberOfScripsTraded");
+
 // Displays all bulk deals.
-  for (int i = 0; i < content.length; i++) {
-    print("${content[i]}");
+  for (int i = 0; i < fileContent.length; i++) {
+    print("${fileContent[i]}");
   }
 
   print("Enter the Stock Symbol you want to search for: ");
-  String? stockSearch = stdin.readLineSync();
+  String? stockSearch = stdin.readLineSync()?.toUpperCase();
 
   List scripTradedDetails = [];
-  for (int j = 0; j < content.length; j++) {
-    if (content[j].split(",")[1].contains(stockSearch.toString())) {
-      scripTradedDetails.add(content[j].split(","));
-      print(content[j]);
+  for (int j = 0; j < fileContent.length; j++) {
+    if (fileContent[j].split(",")[1].contains(stockSearch.toString())) {
+      scripTradedDetails.add(fileContent[j].split(","));
+      print(fileContent[j]);
     }
   }
 
