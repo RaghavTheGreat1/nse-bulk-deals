@@ -23,9 +23,22 @@ void main() async {
   print("Enter the Stock Symbol you want to search for: ");
   String? stockSearch = stdin.readLineSync();
 
+  List scripTradedDetails = [];
   for (int j = 0; j < content.length; j++) {
-    if (content[j].contains(stockSearch.toString())) {
+    if (content[j].split(",")[1].contains(stockSearch.toString())) {
+      scripTradedDetails.add(content[j].split(","));
       print(content[j]);
     }
   }
+
+  int netTradedShares = 0;
+  scripTradedDetails.forEach((element) {
+    if (element[4] == "BUY") {
+      netTradedShares += int.parse(element[5]);
+    } else if (element[4] == "SELL") {
+      netTradedShares -= int.parse(element[5]);
+    }
+  });
+
+  print("Net BUY/Sell by clients: $netTradedShares");
 }
