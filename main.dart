@@ -41,5 +41,5 @@ void main() async {
     }
   });
 
-  print("Net BUY/SELL by clients: $netTradedShares");
+  print("Net shares bought/sold by client(s): $netTradedShares shares");
 }
