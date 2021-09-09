@@ -31,6 +31,7 @@ void main() async {
     }
   }
 
+// Calculates net BUY/SELL in the searched scrip.
   int netTradedShares = 0;
   scripTradedDetails.forEach((element) {
     if (element[4] == "BUY") {
@@ -40,5 +41,5 @@ void main() async {
     }
   });
 
-  print("Net BUY/Sell by clients: $netTradedShares");
+  print("Net BUY/SELL by clients: $netTradedShares");
 }
