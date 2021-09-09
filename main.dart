@@ -19,4 +19,13 @@ void main() async {
   for (int i = 0; i < content.length; i++) {
     print("${content[i]}");
   }
+
+  print("Enter the Stock Symbol you want to search for: ");
+  String? stockSearch = stdin.readLineSync();
+
+  for (int j = 0; j < content.length; j++) {
+    if (content[j].contains(stockSearch.toString())) {
+      print(content[j]);
+    }
+  }
 }
