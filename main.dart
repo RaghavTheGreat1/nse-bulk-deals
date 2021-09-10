@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'bulk_deals_by_stock_search.dart';
+import 'total_bulk_deals_displayer.dart';
 import 'total_scrips_traded.dart';
 
 List<String> fileContent = [];
@@ -19,33 +21,20 @@ void main() async {
   int numberOfScripsTraded = getTotalScripsTraded();
   print("Total number of scrips traded today: $numberOfScripsTraded");
 
-// Displays all bulk deals.
-  for (int i = 0; i < fileContent.length; i++) {
-    print("${fileContent[i]}");
+  print("Do you want to get all bulk deals?(Y/N)");
+  String? allBulkDealRequired = stdin.readLineSync()?.toUpperCase();
+  switch (allBulkDealRequired) {
+    case "Y":
+      totalBulkDealsDisplayer();
+      break;
+
+    case "N":
+      bulkDealsByStock();
+      break;
+
+    default:
+      print("Sorry, it's a wrong input.");
   }
-
-  print("Enter the Stock Symbol you want to search for: ");
-  String? stockSearch = stdin.readLineSync()?.toUpperCase();
-
-  List scripTradedDetails = [];
-  for (int j = 0; j < fileContent.length; j++) {
-    if (fileContent[j].split(",")[1].contains(stockSearch.toString())) {
-      scripTradedDetails.add(fileContent[j].split(","));
-      print(fileContent[j]);
-    }
-  }
-
-// Calculates net BUY/SELL in the searched scrip.
-  int netTradedShares = 0;
-  scripTradedDetails.forEach((element) {
-    if (element[4] == "BUY") {
-      netTradedShares += int.parse(element[5]);
-    } else if (element[4] == "SELL") {
-      netTradedShares -= int.parse(element[5]);
-    }
-  });
-
-  print("Net shares bought/sold by client(s): $netTradedShares shares");
 
   print('\nProgram executed in ${stopwatch.elapsed}');
 }
